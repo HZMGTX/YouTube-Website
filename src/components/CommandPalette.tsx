@@ -9,7 +9,8 @@ type Entry = { id: string; name: string; category: string; members: number };
 const PAGES = [
   { href: '/', label: 'Home', hint: 'Featured and newest' },
   { href: '/browse', label: 'Browse all communities', hint: 'Every listing' },
-  { href: '/stats', label: 'Statistics', hint: 'Size and category breakdown' },
+  { href: '/compare', label: 'Compare communities', hint: 'Up to four side by side' },
+  { href: '/stats', label: 'Statistics', hint: 'Size, category and growth' },
   { href: '/submit', label: 'Submit a community', hint: 'Get listed' },
   { href: '/guidelines', label: 'Listing guidelines', hint: 'What gets accepted' },
   { href: '/faq', label: 'FAQ', hint: 'Common questions' },

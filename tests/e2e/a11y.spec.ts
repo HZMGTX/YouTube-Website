@@ -6,6 +6,7 @@ const PAGES = [
   { path: '/browse/', name: 'browse' },
   { path: '/c/norax/', name: 'a community page' },
   { path: '/stats/', name: 'statistics' },
+  { path: '/compare/?ids=example-lan-party,example-tempo', name: 'compare' },
   { path: '/submit/', name: 'submit' },
   { path: '/faq/', name: 'FAQ' },
 ];

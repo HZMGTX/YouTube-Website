@@ -70,6 +70,22 @@ re-pin; set it to `null` for no featured community.
 | `npm run e2e` | Playwright browser tests, including an axe accessibility scan |
 | `npm run verify` | check → build → check:name → test |
 
+## Searching
+
+The search box takes operators as well as plain words. Anything unrecognised is treated
+as an ordinary search term, so nothing is ever silently swallowed.
+
+| Operator | Example | Meaning |
+| --- | --- | --- |
+| `tag:` | `tag:art` | Carries that tag |
+| `category:` | `category:gaming` | In that category |
+| `members:` | `members:>1000`, `members:<100` | Compare member count |
+| `online:` / `boosts:` | `boosts:>10` | Same, for other figures |
+| `verified:` | `verified:true` | Verified listings only |
+
+Operators combine with each other and with plain words: `tag:art members:>1000 feedback`.
+Filter state lives in the URL, so any view can be shared as a link.
+
 ## Data model
 
 Everything lives in `data/communities.json`.
@@ -83,6 +99,7 @@ Everything lives in `data/communities.json`.
 | `icon`, `banner` | Discord CDN URLs; a missing icon falls back to a generated monogram |
 | `members`, `online`, `boosts` | Maintained by `npm run refresh` |
 | `verified` | Shows a badge; set from Discord's VERIFIED/PARTNERED features |
+| `history` | Weekly `{ date, members, online }` samples appended by `npm run refresh` |
 | `example` | Demo data. Renders an "Example" chip and carries no invite |
 | `accent` | Hex colour used to tint the listing's card and page |
 
@@ -93,6 +110,17 @@ sorting and the statistics page are visible with real-looking data. They render 
 visible "Example" chip and have no invite link, so nothing can be mistaken for a real
 server. Delete them from `data/communities.json` as real listings replace them —
 `npm run check` reminds you how many are left.
+
+## Growth tracking
+
+`npm run refresh` appends a `{ date, members, online }` sample to each listing and keeps
+up to two years of them. Those samples drive the sparkline on a community page, the
+"Fastest growing" ranking on `/stats` and the growth sort in the directory.
+
+Nothing is back-filled. A newly added listing has a single sample and says "not enough
+history yet" rather than drawing a flat line that would imply the server is not growing;
+a trend appears after the second refresh. The example listings carry synthetic history so
+the feature is visible before real data accumulates.
 
 ## Known limitations
 

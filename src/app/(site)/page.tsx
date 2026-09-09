@@ -6,6 +6,7 @@ import DirectorySkeleton from '@/components/DirectorySkeleton';
 import StatsBar from '@/components/StatsBar';
 import CategoryTiles from '@/components/CategoryTiles';
 import SectionRail from '@/components/SectionRail';
+import RecentlyViewed from '@/components/RecentlyViewed';
 import {
   allCategories,
   allTags,
@@ -97,6 +98,10 @@ export default function HomePage() {
           communities={newestCommunities(4)}
           href="/browse?sort=newest"
         />
+      </div>
+
+      <div className="mt-12">
+        <RecentlyViewed communities={[pinned, ...rest].filter((c) => c !== null)} />
       </div>
 
       <div className="mt-12">

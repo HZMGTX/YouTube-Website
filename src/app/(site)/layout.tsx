@@ -1,6 +1,8 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CommandPalette from '@/components/CommandPalette';
+import ShortcutsSheet from '@/components/ShortcutsSheet';
+import BackToTop from '@/components/BackToTop';
 import { getAllCommunities } from '@/lib/communities';
 
 /** Site chrome. /embed sits outside this group and gets none of it. */
@@ -22,6 +24,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         </main>
         <Footer />
       </div>
+      <ShortcutsSheet />
+      <BackToTop />
       <CommandPalette
         communities={communities.map((c) => ({
           id: c.id,

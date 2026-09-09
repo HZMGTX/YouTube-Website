@@ -92,6 +92,32 @@ async function main() {
       error(`${label}: "${community.invite}" is not a Discord invite link.`);
     }
 
+    if (community.history !== undefined) {
+      if (!Array.isArray(community.history)) {
+        error(`${label}: history must be an array.`);
+      } else {
+        let previous = '';
+        for (const point of community.history) {
+          if (!point || typeof point.date !== 'string' || !Number.isFinite(point.members)) {
+            error(`${label}: every history point needs a date and a member count.`);
+            break;
+          }
+          if (point.date <= previous) {
+            error(`${label}: history must be ordered oldest first with no repeated dates.`);
+            break;
+          }
+          previous = point.date;
+        }
+        const last = community.history[community.history.length - 1];
+        if (last && Number.isFinite(community.members) && last.members !== community.members) {
+          warn(
+            `${label}: the newest history sample (${last.members}) does not match the current ` +
+              `member count (${community.members}). Run npm run refresh.`,
+          );
+        }
+      }
+    }
+
     if (community.inviteExpiresAt) {
       const expiry = new Date(community.inviteExpiresAt);
       const days = (expiry.getTime() - Date.now()) / 86_400_000;

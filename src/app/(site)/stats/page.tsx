@@ -1,12 +1,17 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import BarList from '@/components/BarList';
+import Sparkline from '@/components/Sparkline';
 import { compactCount, formatCount, slugify } from '@/lib/format';
 import {
   allTags,
   categoryBreakdown,
   communitiesWithTag,
   directoryStats,
+  fastestGrowing,
   getAllCommunities,
+  growthRate,
+  growthWindowDays,
   sizeBreakdown,
   sortCommunities,
 } from '@/lib/communities';
@@ -22,6 +27,7 @@ export default function StatsPage() {
   const largest = sortCommunities(communities, 'members').slice(0, 8);
   const boosted = sortCommunities(communities, 'boosts').slice(0, 5);
   const tags = allTags().slice(0, 10);
+  const growing = fastestGrowing(6);
 
   return (
     <div className="mx-auto max-w-5xl px-4 pb-8 pt-12 sm:px-6">
@@ -100,6 +106,46 @@ export default function StatsPage() {
           </div>
         </section>
       </div>
+
+      {growing.length > 0 && (
+        <section className="panel mt-4 p-6">
+          <h2 className="text-base font-semibold text-ink">Fastest growing</h2>
+          <p className="mt-1 text-xs text-ink-3">
+            Change in members across the samples on record. Listings added too recently to have a
+            trend are not ranked.
+          </p>
+          <ul className="mt-5 flex flex-col divide-y divide-[var(--line)]">
+            {growing.map((community) => {
+              const rate = growthRate(community) ?? 0;
+              const days = growthWindowDays(community);
+              return (
+                <li key={community.id} className="flex items-center gap-4 py-3 first:pt-0">
+                  <Link
+                    href={`/c/${community.id}`}
+                    className="min-w-0 flex-1 text-sm font-medium text-ink hover:text-accent"
+                  >
+                    <span className="block truncate">{community.name}</span>
+                    <span className="block text-xs font-normal text-ink-3">
+                      {compactCount(community.members)} members{days ? ` · last ${days} days` : ''}
+                    </span>
+                  </Link>
+                  <div className="hidden w-40 shrink-0 sm:block">
+                    <Sparkline
+                      history={community.history ?? []}
+                      accent={community.accent}
+                      label={`${community.name} member trend`}
+                    />
+                  </div>
+                  <span className="w-16 shrink-0 text-right text-sm font-medium tabular-nums text-ink">
+                    {rate >= 0 ? '+' : ''}
+                    {rate.toFixed(1)}%
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       <section className="panel mt-4 p-6">
         <h2 className="text-base font-semibold text-ink">Most boosted</h2>

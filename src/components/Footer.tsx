@@ -9,6 +9,7 @@ const COLUMNS = [
       { href: '/', label: 'Home' },
       { href: '/browse', label: 'Browse all' },
       { href: '/search', label: 'Search' },
+      { href: '/compare', label: 'Compare' },
       { href: '/stats', label: 'Statistics' },
     ],
   },

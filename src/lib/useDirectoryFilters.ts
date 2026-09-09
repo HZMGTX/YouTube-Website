@@ -4,7 +4,7 @@ import { useCallback, useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { DEFAULT_FILTERS, type Filters, type SizeBucket, type SortKey } from './types';
 
-const SORTS: SortKey[] = ['members', 'online', 'boosts', 'newest', 'name'];
+const SORTS: SortKey[] = ['members', 'online', 'boosts', 'newest', 'growth', 'name'];
 const SIZES: SizeBucket[] = ['all', 'small', 'medium', 'large'];
 
 export type View = 'grid' | 'list';
@@ -36,6 +36,7 @@ export function useDirectoryFilters() {
       sort: sort && SORTS.includes(sort) ? sort : DEFAULT_FILTERS.sort,
       size: size && SIZES.includes(size) ? size : DEFAULT_FILTERS.size,
       onlineOnly: params.get('online') === '1',
+      verifiedOnly: params.get('verified') === '1',
       savedOnly: params.get('saved') === '1',
       view: view === 'list' ? 'list' : 'grid',
     };
@@ -57,6 +58,7 @@ export function useDirectoryFilters() {
       set('sort', merged.sort, DEFAULT_FILTERS.sort);
       set('size', merged.size, DEFAULT_FILTERS.size);
       set('online', merged.onlineOnly ? '1' : '', '');
+      set('verified', merged.verifiedOnly ? '1' : '', '');
       set('saved', merged.savedOnly ? '1' : '', '');
       set('view', merged.view, 'grid');
 
@@ -82,6 +84,7 @@ export function useDirectoryFilters() {
     state.categories.length +
     (state.size !== 'all' ? 1 : 0) +
     (state.onlineOnly ? 1 : 0) +
+    (state.verifiedOnly ? 1 : 0) +
     (state.savedOnly ? 1 : 0);
 
   return { state, update, toggleInList, reset, activeCount };

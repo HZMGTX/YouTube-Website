@@ -16,9 +16,21 @@
       "boosts": 15,
       "verified": true,
       "category": "Community",
-      "tags": ["Community", "Hangout", "Supporters", "Content Creator"],
+      "tags": [
+        "Community",
+        "Hangout",
+        "Supporters",
+        "Content Creator"
+      ],
       "addedAt": "2026-09-09",
-      "accent": "#a855f7"
+      "accent": "#a855f7",
+      "history": [
+        {
+          "date": "2026-09-09",
+          "members": 1009,
+          "online": 197
+        }
+      ]
     },
     {
       "id": "example-pixel-forge",
@@ -33,9 +45,55 @@
       "verified": false,
       "example": true,
       "category": "Art",
-      "tags": ["Art", "Creative", "Feedback"],
+      "tags": [
+        "Art",
+        "Creative",
+        "Feedback"
+      ],
       "addedAt": "2026-08-28",
-      "accent": "#f97316"
+      "accent": "#f97316",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 3866,
+          "online": 545
+        },
+        {
+          "date": "2026-07-29",
+          "members": 4022,
+          "online": 527
+        },
+        {
+          "date": "2026-08-05",
+          "members": 4146,
+          "online": 477
+        },
+        {
+          "date": "2026-08-12",
+          "members": 4254,
+          "online": 606
+        },
+        {
+          "date": "2026-08-19",
+          "members": 4376,
+          "online": 590
+        },
+        {
+          "date": "2026-08-26",
+          "members": 4530,
+          "online": 496
+        },
+        {
+          "date": "2026-09-02",
+          "members": 4721,
+          "online": 526
+        },
+        {
+          "date": "2026-09-09",
+          "members": 4820,
+          "online": 612
+        }
+      ]
     },
     {
       "id": "example-night-shift",
@@ -50,9 +108,55 @@
       "verified": false,
       "example": true,
       "category": "Community",
-      "tags": ["Hangout", "Chill", "Community"],
+      "tags": [
+        "Hangout",
+        "Chill",
+        "Community"
+      ],
       "addedAt": "2026-09-01",
-      "accent": "#6366f1"
+      "accent": "#6366f1",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 675,
+          "online": 94
+        },
+        {
+          "date": "2026-07-29",
+          "members": 681,
+          "online": 96
+        },
+        {
+          "date": "2026-08-05",
+          "members": 690,
+          "online": 75
+        },
+        {
+          "date": "2026-08-12",
+          "members": 700,
+          "online": 86
+        },
+        {
+          "date": "2026-08-19",
+          "members": 708,
+          "online": 101
+        },
+        {
+          "date": "2026-08-26",
+          "members": 717,
+          "online": 81
+        },
+        {
+          "date": "2026-09-02",
+          "members": 727,
+          "online": 81
+        },
+        {
+          "date": "2026-09-09",
+          "members": 738,
+          "online": 94
+        }
+      ]
     },
     {
       "id": "example-tempo",
@@ -67,9 +171,55 @@
       "verified": true,
       "example": true,
       "category": "Music",
-      "tags": ["Music", "Production", "Feedback"],
+      "tags": [
+        "Music",
+        "Production",
+        "Feedback"
+      ],
       "addedAt": "2026-07-14",
-      "accent": "#ec4899"
+      "accent": "#ec4899",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 11734,
+          "online": 1713
+        },
+        {
+          "date": "2026-07-29",
+          "members": 11800,
+          "online": 1577
+        },
+        {
+          "date": "2026-08-05",
+          "members": 11899,
+          "online": 1313
+        },
+        {
+          "date": "2026-08-12",
+          "members": 12015,
+          "online": 1653
+        },
+        {
+          "date": "2026-08-19",
+          "members": 12149,
+          "online": 1760
+        },
+        {
+          "date": "2026-08-26",
+          "members": 12237,
+          "online": 1381
+        },
+        {
+          "date": "2026-09-02",
+          "members": 12318,
+          "online": 1521
+        },
+        {
+          "date": "2026-09-09",
+          "members": 12400,
+          "online": 1580
+        }
+      ]
     },
     {
       "id": "example-first-light",
@@ -84,9 +234,55 @@
       "verified": false,
       "example": true,
       "category": "Study",
-      "tags": ["Study", "Focus", "Chill"],
+      "tags": [
+        "Study",
+        "Focus",
+        "Chill"
+      ],
       "addedAt": "2026-09-05",
-      "accent": "#14b8a6"
+      "accent": "#14b8a6",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 62,
+          "online": 8
+        },
+        {
+          "date": "2026-07-29",
+          "members": 64,
+          "online": 9
+        },
+        {
+          "date": "2026-08-05",
+          "members": 66,
+          "online": 9
+        },
+        {
+          "date": "2026-08-12",
+          "members": 70,
+          "online": 9
+        },
+        {
+          "date": "2026-08-19",
+          "members": 74,
+          "online": 8
+        },
+        {
+          "date": "2026-08-26",
+          "members": 76,
+          "online": 9
+        },
+        {
+          "date": "2026-09-02",
+          "members": 81,
+          "online": 8
+        },
+        {
+          "date": "2026-09-09",
+          "members": 86,
+          "online": 11
+        }
+      ]
     },
     {
       "id": "example-lan-party",
@@ -101,9 +297,55 @@
       "verified": true,
       "example": true,
       "category": "Gaming",
-      "tags": ["Gaming", "Voice Chat", "Events"],
+      "tags": [
+        "Gaming",
+        "Voice Chat",
+        "Events"
+      ],
       "addedAt": "2026-06-02",
-      "accent": "#22c55e"
+      "accent": "#22c55e",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 24195,
+          "online": 3521
+        },
+        {
+          "date": "2026-07-29",
+          "members": 24705,
+          "online": 4094
+        },
+        {
+          "date": "2026-08-05",
+          "members": 25146,
+          "online": 3782
+        },
+        {
+          "date": "2026-08-12",
+          "members": 25653,
+          "online": 4382
+        },
+        {
+          "date": "2026-08-19",
+          "members": 26046,
+          "online": 4207
+        },
+        {
+          "date": "2026-08-26",
+          "members": 26391,
+          "online": 3808
+        },
+        {
+          "date": "2026-09-02",
+          "members": 26774,
+          "online": 4498
+        },
+        {
+          "date": "2026-09-09",
+          "members": 27310,
+          "online": 4102
+        }
+      ]
     },
     {
       "id": "example-null-pointer",
@@ -118,9 +360,55 @@
       "verified": false,
       "example": true,
       "category": "Tech",
-      "tags": ["Tech", "Programming", "Feedback"],
+      "tags": [
+        "Tech",
+        "Programming",
+        "Feedback"
+      ],
       "addedAt": "2026-08-11",
-      "accent": "#0ea5e9"
+      "accent": "#0ea5e9",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 8898,
+          "online": 750
+        },
+        {
+          "date": "2026-07-29",
+          "members": 8924,
+          "online": 825
+        },
+        {
+          "date": "2026-08-05",
+          "members": 8951,
+          "online": 798
+        },
+        {
+          "date": "2026-08-12",
+          "members": 8975,
+          "online": 777
+        },
+        {
+          "date": "2026-08-19",
+          "members": 9022,
+          "online": 959
+        },
+        {
+          "date": "2026-08-26",
+          "members": 9058,
+          "online": 784
+        },
+        {
+          "date": "2026-09-02",
+          "members": 9105,
+          "online": 786
+        },
+        {
+          "date": "2026-09-09",
+          "members": 9150,
+          "online": 880
+        }
+      ]
     },
     {
       "id": "example-sakura-lane",
@@ -135,9 +423,55 @@
       "verified": false,
       "example": true,
       "category": "Anime",
-      "tags": ["Anime", "Events", "Community"],
+      "tags": [
+        "Anime",
+        "Events",
+        "Community"
+      ],
       "addedAt": "2026-08-19",
-      "accent": "#f43f5e"
+      "accent": "#f43f5e",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 2532,
+          "online": 311
+        },
+        {
+          "date": "2026-07-29",
+          "members": 2613,
+          "online": 302
+        },
+        {
+          "date": "2026-08-05",
+          "members": 2721,
+          "online": 311
+        },
+        {
+          "date": "2026-08-12",
+          "members": 2843,
+          "online": 316
+        },
+        {
+          "date": "2026-08-19",
+          "members": 2950,
+          "online": 347
+        },
+        {
+          "date": "2026-08-26",
+          "members": 3043,
+          "online": 368
+        },
+        {
+          "date": "2026-09-02",
+          "members": 3128,
+          "online": 352
+        },
+        {
+          "date": "2026-09-09",
+          "members": 3260,
+          "online": 401
+        }
+      ]
     },
     {
       "id": "example-driftwood",
@@ -152,9 +486,55 @@
       "verified": false,
       "example": true,
       "category": "Roleplay",
-      "tags": ["Roleplay", "Writing", "Events"],
+      "tags": [
+        "Roleplay",
+        "Writing",
+        "Events"
+      ],
       "addedAt": "2026-09-03",
-      "accent": "#a3a3a3"
+      "accent": "#a3a3a3",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 509,
+          "online": 66
+        },
+        {
+          "date": "2026-07-29",
+          "members": 510,
+          "online": 61
+        },
+        {
+          "date": "2026-08-05",
+          "members": 511,
+          "online": 67
+        },
+        {
+          "date": "2026-08-12",
+          "members": 511,
+          "online": 57
+        },
+        {
+          "date": "2026-08-19",
+          "members": 511,
+          "online": 61
+        },
+        {
+          "date": "2026-08-26",
+          "members": 512,
+          "online": 61
+        },
+        {
+          "date": "2026-09-02",
+          "members": 512,
+          "online": 61
+        },
+        {
+          "date": "2026-09-09",
+          "members": 512,
+          "online": 63
+        }
+      ]
     }
   ]
 }

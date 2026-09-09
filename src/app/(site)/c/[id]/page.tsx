@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import CommunityIcon from '@/components/CommunityIcon';
 import CommunityBanner from '@/components/CommunityBanner';
+import GrowthCard from '@/components/GrowthCard';
 import CommunityCard from '@/components/CommunityCard';
 import TagPill from '@/components/TagPill';
 import VerifiedBadge from '@/components/VerifiedBadge';
@@ -56,12 +57,29 @@ export default async function CommunityPage({ params }: Params) {
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: community.name,
-    description: community.description,
-    url: `${SITE.url}/c/${community.id}`,
-    ...(community.icon ? { logo: community.icon } : {}),
-    ...(community.invite ? { sameAs: [community.invite] } : {}),
+    '@graph': [
+      {
+        '@type': 'Organization',
+        name: community.name,
+        description: community.description,
+        url: `${SITE.url}/c/${community.id}`,
+        ...(community.icon ? { logo: community.icon } : {}),
+        ...(community.invite ? { sameAs: [community.invite] } : {}),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: community.category,
+            item: `${SITE.url}/category/${slugify(community.category)}`,
+          },
+          { '@type': 'ListItem', position: 3, name: community.name },
+        ],
+      },
+    ],
   };
 
   return (
@@ -143,7 +161,9 @@ export default async function CommunityPage({ params }: Params) {
         </div>
       </article>
 
-      <div className="no-print mt-6 grid items-start gap-4 sm:grid-cols-2">
+      <div className="no-print mt-6 grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <GrowthCard community={community} />
+
         <EmbedSnippet id={community.id} name={community.name} />
 
         <div className="panel p-5">

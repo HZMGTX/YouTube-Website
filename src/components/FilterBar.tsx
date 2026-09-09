@@ -49,7 +49,9 @@ export default function FilterBar({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-2">
+      {/* Sticky so search and sort stay reachable down a long grid. The offset clears
+          the header, which is taller on mobile because the nav wraps to a second row. */}
+      <div className="sticky top-[6.5rem] z-20 -mx-2 flex flex-wrap items-center gap-2 rounded-xl bg-canvas/90 px-2 py-2 backdrop-blur sm:top-[4.25rem]">
         <div className="relative min-w-56 flex-1">
           <svg
             viewBox="0 0 24 24"
@@ -65,7 +67,7 @@ export default function FilterBar({
             type="search"
             value={state.q}
             onChange={(event) => update({ q: event.target.value })}
-            placeholder="Search by name, topic or tag…"
+            placeholder="Search, or try tag:art members:&gt;1000"
             aria-label="Search communities"
             className="h-10 w-full rounded-lg border border-line bg-surface pl-9 pr-16 text-sm text-ink outline-none transition-colors placeholder:text-ink-3 focus:border-line-strong"
           />
@@ -194,6 +196,16 @@ export default function FilterBar({
             className="size-4 rounded border-line accent-[var(--accent)]"
           />
           Active now
+        </label>
+
+        <label className="flex cursor-pointer items-center gap-2 text-sm text-ink-2">
+          <input
+            type="checkbox"
+            checked={state.verifiedOnly}
+            onChange={(event) => update({ verifiedOnly: event.target.checked })}
+            className="size-4 rounded border-line accent-[var(--accent)]"
+          />
+          Verified
         </label>
 
         <label className="flex cursor-pointer items-center gap-2 text-sm text-ink-2">

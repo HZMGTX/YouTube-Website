@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   openGraph: { type: 'website', title: SITE.title, description: SITE.description, locale: 'en' },
   twitter: { card: 'summary_large_image', title: SITE.title, description: SITE.description },
   robots: { index: true, follow: true },
+  alternates: {
+    types: { 'application/rss+xml': [{ url: `${SITE.url}/feed.xml`, title: 'Recently added communities' }] },
+  },
 };
 
 export const viewport: Viewport = {

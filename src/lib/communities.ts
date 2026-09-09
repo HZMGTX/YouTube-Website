@@ -1,6 +1,6 @@
 import directoryData from '../../data/communities.json';
 import { slugify } from './format';
-import type { Community, Directory, Filters, SizeBucket, SortKey } from './types';
+import type { Community, Directory, Filters, HistoryPoint, SizeBucket, SortKey } from './types';
 
 const directory = directoryData as unknown as Directory;
 
@@ -71,14 +71,85 @@ function inSizeBucket(community: Community, bucket: SizeBucket): boolean {
   }
 }
 
+export type ParsedQuery = {
+  terms: string[];
+  tags: string[];
+  categories: string[];
+  /** e.g. members:>1000 becomes { field: 'members', op: '>', value: 1000 } */
+  numeric: { field: 'members' | 'online' | 'boosts'; op: '>' | '<' | '='; value: number }[];
+  verified: boolean | null;
+};
+
+const NUMERIC_FIELDS = ['members', 'online', 'boosts'] as const;
+
+/**
+ * Parses search operators out of a free-text query, so `tag:art members:>1000` filters
+ * rather than being matched literally. Anything unrecognised stays a plain term.
+ */
+export function parseQuery(query: string): ParsedQuery {
+  const parsed: ParsedQuery = { terms: [], tags: [], categories: [], numeric: [], verified: null };
+
+  for (const token of query.trim().toLowerCase().split(/\s+/).filter(Boolean)) {
+    const [rawKey, ...rest] = token.split(':');
+    const value = rest.join(':');
+
+    if (!value) {
+      parsed.terms.push(token);
+      continue;
+    }
+
+    if (rawKey === 'tag') {
+      parsed.tags.push(value);
+    } else if (rawKey === 'category' || rawKey === 'cat') {
+      parsed.categories.push(value);
+    } else if (rawKey === 'verified') {
+      parsed.verified = value !== 'false' && value !== 'no';
+    } else if ((NUMERIC_FIELDS as readonly string[]).includes(rawKey)) {
+      const match = value.match(/^([<>]?=?)(\d+)$/);
+      if (match) {
+        const op = match[1].startsWith('>') ? '>' : match[1].startsWith('<') ? '<' : '=';
+        parsed.numeric.push({
+          field: rawKey as 'members' | 'online' | 'boosts',
+          op,
+          value: Number(match[2]),
+        });
+      } else {
+        parsed.terms.push(token);
+      }
+    } else {
+      parsed.terms.push(token);
+    }
+  }
+
+  return parsed;
+}
+
 function matchesQuery(community: Community, query: string): boolean {
-  const q = query.trim().toLowerCase();
-  if (!q) return true;
+  if (!query.trim()) return true;
+  const parsed = parseQuery(query);
+
+  if (parsed.verified !== null && community.verified !== parsed.verified) return false;
+
+  for (const tag of parsed.tags) {
+    if (!community.tags.some((t) => t.toLowerCase().includes(tag))) return false;
+  }
+  for (const category of parsed.categories) {
+    if (!community.category.toLowerCase().includes(category)) return false;
+  }
+  for (const { field, op, value } of parsed.numeric) {
+    const actual = community[field];
+    if (op === '>' && !(actual > value)) return false;
+    if (op === '<' && !(actual < value)) return false;
+    if (op === '=' && actual !== value) return false;
+  }
+
+  if (parsed.terms.length === 0) return true;
+
   const haystack = [community.name, community.description, community.category, ...community.tags]
     .join(' ')
     .toLowerCase();
-  // Every whitespace-separated term must appear, so "art feedback" narrows rather than widens.
-  return q.split(/\s+/).every((term) => haystack.includes(term));
+  // Every plain term must appear, so "art feedback" narrows rather than widens.
+  return parsed.terms.every((term) => haystack.includes(term));
 }
 
 export function filterCommunities(list: Community[], filters: Filters): Community[] {
@@ -86,10 +157,49 @@ export function filterCommunities(list: Community[], filters: Filters): Communit
     if (!matchesQuery(community, filters.q)) return false;
     if (!inSizeBucket(community, filters.size)) return false;
     if (filters.onlineOnly && community.online <= 0) return false;
+    if (filters.verifiedOnly && !community.verified) return false;
     if (filters.tags.length && !filters.tags.every((tag) => community.tags.includes(tag))) return false;
     if (filters.categories.length && !filters.categories.includes(community.category)) return false;
     return true;
   });
+}
+
+/**
+ * Percentage change in members between the first and last recorded sample, or null
+ * when there is not yet enough history to say anything. Deliberately returns null
+ * rather than 0 so the UI can distinguish "flat" from "unknown".
+ */
+export function growthRate(community: Community): number | null {
+  const history = community.history ?? [];
+  if (history.length < 2) return null;
+  const first = history[0].members;
+  const last = history[history.length - 1].members;
+  if (first <= 0) return null;
+  return ((last - first) / first) * 100;
+}
+
+export function growthWindowDays(community: Community): number | null {
+  const history = community.history ?? [];
+  if (history.length < 2) return null;
+  const start = new Date(`${history[0].date}T00:00:00Z`).getTime();
+  const end = new Date(`${history[history.length - 1].date}T00:00:00Z`).getTime();
+  if (Number.isNaN(start) || Number.isNaN(end)) return null;
+  return Math.round((end - start) / 86_400_000);
+}
+
+/** Listings ranked by growth, skipping any without enough history to rank. */
+export function fastestGrowing(limit = 5, list: Community[] = getAllCommunities()): Community[] {
+  return list
+    .filter((community) => growthRate(community) !== null)
+    .sort((a, b) => (growthRate(b) ?? 0) - (growthRate(a) ?? 0))
+    .slice(0, limit);
+}
+
+/** Added within the window — drives the "New" badge. */
+export function isNew(community: Community, days = 14, now: Date = new Date()): boolean {
+  const added = new Date(`${community.addedAt}T00:00:00Z`).getTime();
+  if (Number.isNaN(added)) return false;
+  return now.getTime() - added <= days * 86_400_000 && added <= now.getTime();
 }
 
 export function sortCommunities(list: Community[], sort: SortKey): Community[] {
@@ -102,6 +212,15 @@ export function sortCommunities(list: Community[], sort: SortKey): Community[] {
         return b.boosts - a.boosts || a.name.localeCompare(b.name);
       case 'newest':
         return b.addedAt.localeCompare(a.addedAt) || a.name.localeCompare(b.name);
+      case 'growth': {
+        // Listings without history sort last rather than being treated as 0% growth.
+        const left = growthRate(a);
+        const right = growthRate(b);
+        if (left === null && right === null) return a.name.localeCompare(b.name);
+        if (left === null) return 1;
+        if (right === null) return -1;
+        return right - left || a.name.localeCompare(b.name);
+      }
       case 'name':
         return a.name.localeCompare(b.name);
       default:

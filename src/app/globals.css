@@ -181,3 +181,9 @@
     color: #000;
   }
 }
+
+/* Cross-document view transitions. Client-side navigation is handled by the router, so
+   this smooths hard navigations and no-JS browsing rather than replacing either. */
+@view-transition {
+  navigation: auto;
+}

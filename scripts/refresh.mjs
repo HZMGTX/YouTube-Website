@@ -43,6 +43,19 @@ async function main() {
       if (guild.icon) community.icon = iconUrl(guild);
       if (guild.banner) community.banner = bannerUrl(guild);
 
+      // Append one sample per day at most, so a re-run does not stack duplicates.
+      const today = new Date().toISOString().slice(0, 10);
+      community.history = Array.isArray(community.history) ? community.history : [];
+      const existing = community.history.find((point) => point.date === today);
+      if (existing) {
+        existing.members = community.members;
+        existing.online = community.online;
+      } else {
+        community.history.push({ date: today, members: community.members, online: community.online });
+      }
+      // Two years of weekly samples is plenty; drop anything older.
+      if (community.history.length > 104) community.history = community.history.slice(-104);
+
       const delta = community.members - before.members;
       changes.push(
         `${community.name}: ${before.members.toLocaleString('en-US')} → ${community.members.toLocaleString('en-US')} members` +

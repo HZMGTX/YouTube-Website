@@ -5,6 +5,7 @@ import CommandPaletteTrigger from './CommandPaletteTrigger';
 
 const NAV = [
   { href: '/browse', label: 'Browse' },
+  { href: '/compare', label: 'Compare' },
   { href: '/stats', label: 'Stats' },
   { href: '/guidelines', label: 'Guidelines' },
   { href: '/submit', label: 'Submit' },

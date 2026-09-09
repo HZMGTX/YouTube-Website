@@ -1,4 +1,12 @@
 /** A single listing in the directory. Shape mirrors data/communities.json. */
+/** One weekly sample, appended by `npm run refresh`. */
+export type HistoryPoint = {
+  /** ISO date (YYYY-MM-DD). */
+  date: string;
+  members: number;
+  online: number;
+};
+
 export type Community = {
   id: string;
   name: string;
@@ -23,6 +31,11 @@ export type Community = {
   addedAt: string;
   /** Hex colour used to tint the community's card and page. */
   accent: string;
+  /**
+   * Member counts over time, oldest first. Real listings start with a single point on
+   * the day they were added and accumulate one per refresh; nothing is back-filled.
+   */
+  history?: HistoryPoint[];
 };
 
 export type Directory = {
@@ -31,7 +44,7 @@ export type Directory = {
   communities: Community[];
 };
 
-export type SortKey = 'members' | 'online' | 'boosts' | 'newest' | 'name';
+export type SortKey = 'members' | 'online' | 'boosts' | 'newest' | 'name' | 'growth';
 
 export type SizeBucket = 'all' | 'small' | 'medium' | 'large';
 
@@ -42,6 +55,7 @@ export type Filters = {
   sort: SortKey;
   size: SizeBucket;
   onlineOnly: boolean;
+  verifiedOnly: boolean;
 };
 
 export const SORT_LABELS: Record<SortKey, string> = {
@@ -49,6 +63,7 @@ export const SORT_LABELS: Record<SortKey, string> = {
   online: 'Most online',
   boosts: 'Most boosted',
   newest: 'Recently added',
+  growth: 'Fastest growing',
   name: 'A–Z',
 };
 
@@ -66,4 +81,5 @@ export const DEFAULT_FILTERS: Filters = {
   sort: 'members',
   size: 'all',
   onlineOnly: false,
+  verifiedOnly: false,
 };

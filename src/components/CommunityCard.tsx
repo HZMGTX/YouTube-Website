@@ -5,7 +5,9 @@ import StatPair from './StatPair';
 import TagPill from './TagPill';
 import VerifiedBadge from './VerifiedBadge';
 import ExampleChip from './ExampleChip';
+import NewBadge from './NewBadge';
 import JoinButton from './JoinButton';
+import { isNew } from '@/lib/communities';
 import type { Community } from '@/lib/types';
 
 /**
@@ -39,6 +41,7 @@ export default function CommunityCard({ community }: { community: Community }) {
           <TagPill key={tag} tag={tag} />
         ))}
         {community.example && <ExampleChip />}
+        {isNew(community) && <NewBadge />}
       </div>
 
       <div className="mt-auto flex items-end justify-between gap-3 border-t border-line pt-4">

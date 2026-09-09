@@ -8,6 +8,7 @@ import {
   communitiesInCategory,
   communitiesWithTag,
   directoryStats,
+  fastestGrowing,
   filterCommunities,
   findCategoryBySlug,
   findTagBySlug,
@@ -15,6 +16,10 @@ import {
   getCommunity,
   getPinned,
   getUnpinned,
+  growthRate,
+  growthWindowDays,
+  isNew,
+  parseQuery,
   relatedTo,
   sizeBreakdown,
   sortCommunities,
@@ -239,5 +244,122 @@ describe('the data file itself', () => {
       if (community.example) expect(community.invite).toBeNull();
       else expect(community.invite).toBeTruthy();
     }
+  });
+});
+
+describe('search operators', () => {
+  it('parses tag, category, numeric and verified operators', () => {
+    const parsed = parseQuery('tag:art category:music members:>1000 verified:true cosy');
+    expect(parsed.tags).toEqual(['art']);
+    expect(parsed.categories).toEqual(['music']);
+    expect(parsed.numeric).toEqual([{ field: 'members', op: '>', value: 1000 }]);
+    expect(parsed.verified).toBe(true);
+    expect(parsed.terms).toEqual(['cosy']);
+  });
+
+  it('keeps unrecognised or malformed operators as plain search terms', () => {
+    expect(parseQuery('colour:red').terms).toEqual(['colour:red']);
+    expect(parseQuery('members:lots').terms).toEqual(['members:lots']);
+    expect(parseQuery('plain words').terms).toEqual(['plain', 'words']);
+  });
+
+  it('filters by tag operator', () => {
+    const results = filterCommunities(getAllCommunities(), filters({ q: 'tag:roleplay' }));
+    expect(results.length).toBeGreaterThan(0);
+    expect(results.every((c) => c.tags.some((t) => t.toLowerCase().includes('roleplay')))).toBe(true);
+  });
+
+  it('filters by a numeric comparison', () => {
+    const big = filterCommunities(getAllCommunities(), filters({ q: 'members:>5000' }));
+    expect(big.every((c) => c.members > 5000)).toBe(true);
+    expect(big.length).toBeGreaterThan(0);
+
+    const small = filterCommunities(getAllCommunities(), filters({ q: 'members:<1000' }));
+    expect(small.every((c) => c.members < 1000)).toBe(true);
+  });
+
+  it('combines an operator with a free-text term', () => {
+    const results = filterCommunities(getAllCommunities(), filters({ q: 'category:art pixel' }));
+    expect(results.map((c) => c.name)).toEqual(['Pixel Forge']);
+  });
+
+  it('filters by verified', () => {
+    const verified = filterCommunities(getAllCommunities(), filters({ q: 'verified:true' }));
+    expect(verified.every((c) => c.verified)).toBe(true);
+
+    const unverified = filterCommunities(getAllCommunities(), filters({ q: 'verified:false' }));
+    expect(unverified.every((c) => !c.verified)).toBe(true);
+  });
+});
+
+describe('the verified filter', () => {
+  it('keeps only verified listings when on', () => {
+    const results = filterCommunities(getAllCommunities(), filters({ verifiedOnly: true }));
+    expect(results.length).toBeGreaterThan(0);
+    expect(results.every((c) => c.verified)).toBe(true);
+  });
+});
+
+describe('growth', () => {
+  it('returns null until there are at least two samples', () => {
+    const norax = getCommunity('norax')!;
+    expect(norax.history?.length).toBe(1);
+    expect(growthRate(norax)).toBeNull();
+    expect(growthWindowDays(norax)).toBeNull();
+  });
+
+  it('measures change between the first and last sample', () => {
+    const pixel = getCommunity('example-pixel-forge')!;
+    const history = pixel.history!;
+    const expected = ((history[history.length - 1].members - history[0].members) / history[0].members) * 100;
+    expect(growthRate(pixel)).toBeCloseTo(expected, 6);
+    expect(growthWindowDays(pixel)).toBe(49);
+  });
+
+  it('ranks by growth and skips listings that cannot be ranked', () => {
+    const ranked = fastestGrowing(10);
+    expect(ranked.every((c) => growthRate(c) !== null)).toBe(true);
+    for (let i = 1; i < ranked.length; i += 1) {
+      expect(growthRate(ranked[i - 1])!).toBeGreaterThanOrEqual(growthRate(ranked[i])!);
+    }
+    expect(ranked.some((c) => c.id === 'norax')).toBe(false);
+  });
+
+  it('sorts listings without history to the end rather than treating them as flat', () => {
+    const sorted = sortCommunities(getAllCommunities(), 'growth');
+    const withHistory = sorted.filter((c) => growthRate(c) !== null);
+    const without = sorted.filter((c) => growthRate(c) === null);
+    expect(sorted.slice(0, withHistory.length)).toEqual(withHistory);
+    expect(sorted.slice(withHistory.length)).toEqual(without);
+  });
+
+  it('keeps history ordered oldest first and ending on the current count', () => {
+    for (const community of getAllCommunities()) {
+      const history = community.history ?? [];
+      for (let i = 1; i < history.length; i += 1) {
+        expect(history[i].date > history[i - 1].date).toBe(true);
+      }
+      if (history.length) expect(history[history.length - 1].members).toBe(community.members);
+    }
+  });
+});
+
+describe('the New badge', () => {
+  it('marks listings added inside the window and not those outside it', () => {
+    const community = getCommunity('norax')!;
+    const justAfter = new Date(`${community.addedAt}T00:00:00Z`);
+    justAfter.setUTCDate(justAfter.getUTCDate() + 3);
+    expect(isNew(community, 14, justAfter)).toBe(true);
+
+    const wellAfter = new Date(`${community.addedAt}T00:00:00Z`);
+    wellAfter.setUTCDate(wellAfter.getUTCDate() + 30);
+    expect(isNew(community, 14, wellAfter)).toBe(false);
+  });
+
+  it('does not mark a listing dated in the future', () => {
+    const community = getCommunity('norax')!;
+    const before = new Date(`${community.addedAt}T00:00:00Z`);
+    before.setUTCDate(before.getUTCDate() - 5);
+    expect(isNew(community, 14, before)).toBe(false);
   });
 });

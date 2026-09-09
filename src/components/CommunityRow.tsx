@@ -4,7 +4,9 @@ import SaveButton from './SaveButton';
 import StatPair from './StatPair';
 import VerifiedBadge from './VerifiedBadge';
 import ExampleChip from './ExampleChip';
+import NewBadge from './NewBadge';
 import JoinButton from './JoinButton';
+import { isNew } from '@/lib/communities';
 import type { Community } from '@/lib/types';
 
 /** Compact list variant of CommunityCard, for the grid/list view toggle. */
@@ -20,6 +22,7 @@ export default function CommunityRow({ community }: { community: Community }) {
           </Link>
           {community.verified && <VerifiedBadge className="size-3.5" />}
           {community.example && <ExampleChip />}
+          {isNew(community) && <NewBadge />}
         </h3>
         <p className="mt-0.5 line-clamp-1 text-xs text-ink-2">{community.description}</p>
         <StatPair members={community.members} online={community.online} className="mt-1.5" />
