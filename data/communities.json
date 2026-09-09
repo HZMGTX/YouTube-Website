@@ -1,0 +1,540 @@
+{
+  "_readme": "Single source of truth for the directory. `pinnedId` decides which community holds the featured slot at the top of every listing. Entries with \"example\": true are demo data used to exercise the search, filter, sort and stats features - delete them once real listings exist (see README.md). Add a real community with: npm run add <discord invite>",
+  "pinnedId": "norax",
+  "communities": [
+    {
+      "id": "norax",
+      "name": "Norax",
+      "guildId": "1528041479107252275",
+      "description": "This server is made for Norax and his fam aka supporters. Come on and join the family already!",
+      "invite": "https://discord.gg/tgUbkdsCY",
+      "inviteExpiresAt": "2026-10-09T13:56:37+00:00",
+      "icon": "https://cdn.discordapp.com/icons/1528041479107252275/8de93be75da8e0593bd56e81159981b5.webp?size=512",
+      "banner": "https://cdn.discordapp.com/banners/1528041479107252275/a_a0fc12e28ba0cae40893545ade86fd89.webp?size=1280&animated=true",
+      "members": 1009,
+      "online": 197,
+      "boosts": 15,
+      "verified": true,
+      "category": "Community",
+      "tags": [
+        "Community",
+        "Hangout",
+        "Supporters",
+        "Content Creator"
+      ],
+      "addedAt": "2026-09-09",
+      "accent": "#a855f7",
+      "history": [
+        {
+          "date": "2026-09-09",
+          "members": 1009,
+          "online": 197
+        }
+      ]
+    },
+    {
+      "id": "example-pixel-forge",
+      "name": "Pixel Forge",
+      "description": "A workshop server for pixel artists, sprite animators and anyone who likes their art a little blocky.",
+      "invite": null,
+      "icon": null,
+      "banner": null,
+      "members": 4820,
+      "online": 612,
+      "boosts": 14,
+      "verified": false,
+      "example": true,
+      "category": "Art",
+      "tags": [
+        "Art",
+        "Creative",
+        "Feedback"
+      ],
+      "addedAt": "2026-08-28",
+      "accent": "#f97316",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 3866,
+          "online": 545
+        },
+        {
+          "date": "2026-07-29",
+          "members": 4022,
+          "online": 527
+        },
+        {
+          "date": "2026-08-05",
+          "members": 4146,
+          "online": 477
+        },
+        {
+          "date": "2026-08-12",
+          "members": 4254,
+          "online": 606
+        },
+        {
+          "date": "2026-08-19",
+          "members": 4376,
+          "online": 590
+        },
+        {
+          "date": "2026-08-26",
+          "members": 4530,
+          "online": 496
+        },
+        {
+          "date": "2026-09-02",
+          "members": 4721,
+          "online": 526
+        },
+        {
+          "date": "2026-09-09",
+          "members": 4820,
+          "online": 612
+        }
+      ]
+    },
+    {
+      "id": "example-night-shift",
+      "name": "Night Shift",
+      "description": "A late-hours hangout for insomniacs, shift workers and anyone whose day starts when everyone else logs off.",
+      "invite": null,
+      "icon": null,
+      "banner": null,
+      "members": 738,
+      "online": 94,
+      "boosts": 3,
+      "verified": false,
+      "example": true,
+      "category": "Community",
+      "tags": [
+        "Hangout",
+        "Chill",
+        "Community"
+      ],
+      "addedAt": "2026-09-01",
+      "accent": "#6366f1",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 675,
+          "online": 94
+        },
+        {
+          "date": "2026-07-29",
+          "members": 681,
+          "online": 96
+        },
+        {
+          "date": "2026-08-05",
+          "members": 690,
+          "online": 75
+        },
+        {
+          "date": "2026-08-12",
+          "members": 700,
+          "online": 86
+        },
+        {
+          "date": "2026-08-19",
+          "members": 708,
+          "online": 101
+        },
+        {
+          "date": "2026-08-26",
+          "members": 717,
+          "online": 81
+        },
+        {
+          "date": "2026-09-02",
+          "members": 727,
+          "online": 81
+        },
+        {
+          "date": "2026-09-09",
+          "members": 738,
+          "online": 94
+        }
+      ]
+    },
+    {
+      "id": "example-tempo",
+      "name": "Tempo",
+      "description": "Producers, mixers and bedroom musicians swapping stems, feedback and far too many plugin recommendations.",
+      "invite": null,
+      "icon": null,
+      "banner": null,
+      "members": 12400,
+      "online": 1580,
+      "boosts": 42,
+      "verified": true,
+      "example": true,
+      "category": "Music",
+      "tags": [
+        "Music",
+        "Production",
+        "Feedback"
+      ],
+      "addedAt": "2026-07-14",
+      "accent": "#ec4899",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 11734,
+          "online": 1713
+        },
+        {
+          "date": "2026-07-29",
+          "members": 11800,
+          "online": 1577
+        },
+        {
+          "date": "2026-08-05",
+          "members": 11899,
+          "online": 1313
+        },
+        {
+          "date": "2026-08-12",
+          "members": 12015,
+          "online": 1653
+        },
+        {
+          "date": "2026-08-19",
+          "members": 12149,
+          "online": 1760
+        },
+        {
+          "date": "2026-08-26",
+          "members": 12237,
+          "online": 1381
+        },
+        {
+          "date": "2026-09-02",
+          "members": 12318,
+          "online": 1521
+        },
+        {
+          "date": "2026-09-09",
+          "members": 12400,
+          "online": 1580
+        }
+      ]
+    },
+    {
+      "id": "example-first-light",
+      "name": "First Light",
+      "description": "A small reading and study room. Timed focus sessions every morning, quiet voice channels the rest of the day.",
+      "invite": null,
+      "icon": null,
+      "banner": null,
+      "members": 86,
+      "online": 11,
+      "boosts": 0,
+      "verified": false,
+      "example": true,
+      "category": "Study",
+      "tags": [
+        "Study",
+        "Focus",
+        "Chill"
+      ],
+      "addedAt": "2026-09-05",
+      "accent": "#14b8a6",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 62,
+          "online": 8
+        },
+        {
+          "date": "2026-07-29",
+          "members": 64,
+          "online": 9
+        },
+        {
+          "date": "2026-08-05",
+          "members": 66,
+          "online": 9
+        },
+        {
+          "date": "2026-08-12",
+          "members": 70,
+          "online": 9
+        },
+        {
+          "date": "2026-08-19",
+          "members": 74,
+          "online": 8
+        },
+        {
+          "date": "2026-08-26",
+          "members": 76,
+          "online": 9
+        },
+        {
+          "date": "2026-09-02",
+          "members": 81,
+          "online": 8
+        },
+        {
+          "date": "2026-09-09",
+          "members": 86,
+          "online": 11
+        }
+      ]
+    },
+    {
+      "id": "example-lan-party",
+      "name": "LAN Party",
+      "description": "Nightly stacks across shooters, party games and whatever is on sale. Casual queues, no rank gatekeeping.",
+      "invite": null,
+      "icon": null,
+      "banner": null,
+      "members": 27310,
+      "online": 4102,
+      "boosts": 96,
+      "verified": true,
+      "example": true,
+      "category": "Gaming",
+      "tags": [
+        "Gaming",
+        "Voice Chat",
+        "Events"
+      ],
+      "addedAt": "2026-06-02",
+      "accent": "#22c55e",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 24195,
+          "online": 3521
+        },
+        {
+          "date": "2026-07-29",
+          "members": 24705,
+          "online": 4094
+        },
+        {
+          "date": "2026-08-05",
+          "members": 25146,
+          "online": 3782
+        },
+        {
+          "date": "2026-08-12",
+          "members": 25653,
+          "online": 4382
+        },
+        {
+          "date": "2026-08-19",
+          "members": 26046,
+          "online": 4207
+        },
+        {
+          "date": "2026-08-26",
+          "members": 26391,
+          "online": 3808
+        },
+        {
+          "date": "2026-09-02",
+          "members": 26774,
+          "online": 4498
+        },
+        {
+          "date": "2026-09-09",
+          "members": 27310,
+          "online": 4102
+        }
+      ]
+    },
+    {
+      "id": "example-null-pointer",
+      "name": "Null Pointer",
+      "description": "Developers helping developers. Code review threads, a job board and a channel purely for cursed bugs.",
+      "invite": null,
+      "icon": null,
+      "banner": null,
+      "members": 9150,
+      "online": 880,
+      "boosts": 21,
+      "verified": false,
+      "example": true,
+      "category": "Tech",
+      "tags": [
+        "Tech",
+        "Programming",
+        "Feedback"
+      ],
+      "addedAt": "2026-08-11",
+      "accent": "#0ea5e9",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 8898,
+          "online": 750
+        },
+        {
+          "date": "2026-07-29",
+          "members": 8924,
+          "online": 825
+        },
+        {
+          "date": "2026-08-05",
+          "members": 8951,
+          "online": 798
+        },
+        {
+          "date": "2026-08-12",
+          "members": 8975,
+          "online": 777
+        },
+        {
+          "date": "2026-08-19",
+          "members": 9022,
+          "online": 959
+        },
+        {
+          "date": "2026-08-26",
+          "members": 9058,
+          "online": 784
+        },
+        {
+          "date": "2026-09-02",
+          "members": 9105,
+          "online": 786
+        },
+        {
+          "date": "2026-09-09",
+          "members": 9150,
+          "online": 880
+        }
+      ]
+    },
+    {
+      "id": "example-sakura-lane",
+      "name": "Sakura Lane",
+      "description": "Seasonal anime watch parties, manga threads and a very opinionated recommendations channel.",
+      "invite": null,
+      "icon": null,
+      "banner": null,
+      "members": 3260,
+      "online": 401,
+      "boosts": 9,
+      "verified": false,
+      "example": true,
+      "category": "Anime",
+      "tags": [
+        "Anime",
+        "Events",
+        "Community"
+      ],
+      "addedAt": "2026-08-19",
+      "accent": "#f43f5e",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 2532,
+          "online": 311
+        },
+        {
+          "date": "2026-07-29",
+          "members": 2613,
+          "online": 302
+        },
+        {
+          "date": "2026-08-05",
+          "members": 2721,
+          "online": 311
+        },
+        {
+          "date": "2026-08-12",
+          "members": 2843,
+          "online": 316
+        },
+        {
+          "date": "2026-08-19",
+          "members": 2950,
+          "online": 347
+        },
+        {
+          "date": "2026-08-26",
+          "members": 3043,
+          "online": 368
+        },
+        {
+          "date": "2026-09-02",
+          "members": 3128,
+          "online": 352
+        },
+        {
+          "date": "2026-09-09",
+          "members": 3260,
+          "online": 401
+        }
+      ]
+    },
+    {
+      "id": "example-driftwood",
+      "name": "Driftwood",
+      "description": "A long-running collaborative roleplay setting. Lore archive, character apps and weekly story sessions.",
+      "invite": null,
+      "icon": null,
+      "banner": null,
+      "members": 512,
+      "online": 63,
+      "boosts": 5,
+      "verified": false,
+      "example": true,
+      "category": "Roleplay",
+      "tags": [
+        "Roleplay",
+        "Writing",
+        "Events"
+      ],
+      "addedAt": "2026-09-03",
+      "accent": "#a3a3a3",
+      "history": [
+        {
+          "date": "2026-07-22",
+          "members": 509,
+          "online": 66
+        },
+        {
+          "date": "2026-07-29",
+          "members": 510,
+          "online": 61
+        },
+        {
+          "date": "2026-08-05",
+          "members": 511,
+          "online": 67
+        },
+        {
+          "date": "2026-08-12",
+          "members": 511,
+          "online": 57
+        },
+        {
+          "date": "2026-08-19",
+          "members": 511,
+          "online": 61
+        },
+        {
+          "date": "2026-08-26",
+          "members": 512,
+          "online": 61
+        },
+        {
+          "date": "2026-09-02",
+          "members": 512,
+          "online": 61
+        },
+        {
+          "date": "2026-09-09",
+          "members": 512,
+          "online": 63
+        }
+      ]
+    }
+  ]
+}

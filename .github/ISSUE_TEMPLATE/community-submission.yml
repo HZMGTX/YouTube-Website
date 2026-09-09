@@ -1,0 +1,58 @@
+name: Submit a community
+description: Add a Discord server to the directory.
+title: 'Add <server name>'
+labels: [submission]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting. Please read the listing guidelines first — servers that
+        break them are not listed. Most of the details below are pulled from Discord
+        automatically, so only the invite is required.
+  - type: input
+    id: invite
+    attributes:
+      label: Discord invite
+      description: Must be a permanent invite. Temporary invites expire and break the listing.
+      placeholder: https://discord.gg/...
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Server name
+      description: Leave blank to use the name Discord reports.
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Community
+        - Gaming
+        - Art
+        - Music
+        - Tech
+        - Anime
+        - Roleplay
+        - Study
+        - Content Creator
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Up to four, separated by commas.
+      placeholder: Art, Feedback, Events
+  - type: textarea
+    id: description
+    attributes:
+      label: What is the server for?
+      description: One or two sentences a stranger could read and know whether to join.
+  - type: checkboxes
+    id: agreement
+    attributes:
+      label: Confirmation
+      options:
+        - label: I have read the listing guidelines and this server meets them.
+          required: true
+        - label: I am a member or staff of this server.
+          required: true
