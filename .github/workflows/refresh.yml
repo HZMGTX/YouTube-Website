@@ -1,0 +1,57 @@
+name: Refresh community data
+
+# The site is static and Discord's widget API is disabled for the featured server, so
+# member counts cannot be read in the browser. This job keeps them current instead, and
+# raises an issue before a temporary invite expires and breaks a Join button.
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Re-fetch member counts from Discord
+        run: npm run refresh
+
+      - name: Commit any changes
+        run: |
+          if git diff --quiet -- data/communities.json; then
+            echo "Counts are unchanged."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/communities.json
+          git commit -m "Refresh community member counts"
+          git push
+
+      - name: Flag invites that are close to expiring
+        id: expiry
+        continue-on-error: true
+        run: npm run check -- --strict --offline
+
+      - name: Open an issue when an invite needs replacing
+        if: steps.expiry.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="An invite link needs replacing"
+          if [ -z "$(gh issue list --search "$title in:title" --state open --json number --jq '.[0].number')" ]; then
+            gh issue create --title "$title" \
+              --body "\`npm run check --strict\` reports a listing whose Discord invite carries an expiry. Temporary invites stop working and leave a dead Join button. Replace it with a permanent invite or a vanity URL in \`data/communities.json\`, then run \`npm run check\`."
+          fi

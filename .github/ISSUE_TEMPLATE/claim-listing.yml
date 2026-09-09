@@ -1,0 +1,24 @@
+name: Claim a listing
+description: Ask for changes to a listing for a server you run.
+title: 'Claim: <server name>'
+labels: [claim]
+body:
+  - type: input
+    id: listing
+    attributes:
+      label: Listing id
+      description: The id in the page URL, for example /c/norax.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What should change?
+      description: New description, tags, invite link, or a request to remove the listing entirely.
+    validations:
+      required: true
+  - type: input
+    id: proof
+    attributes:
+      label: How can we verify you run the server?
+      description: For example, a channel we can check or a message we can look for.

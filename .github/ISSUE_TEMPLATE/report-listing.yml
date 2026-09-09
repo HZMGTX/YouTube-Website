@@ -1,0 +1,29 @@
+name: Report a listing
+description: Tell us about a dead invite, wrong details or a rule breach.
+title: 'Report: <server name>'
+labels: [report]
+body:
+  - type: input
+    id: listing
+    attributes:
+      label: Listing id
+      description: The id in the page URL, for example /c/norax.
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: What is wrong?
+      options:
+        - The invite link is dead or expired
+        - The details are out of date or inaccurate
+        - The server breaks the listing guidelines
+        - The server no longer exists
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: Details
+      description: Anything that helps us check it.
